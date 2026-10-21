@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { setContext, untrack } from 'svelte';
-	import { collector, COLLECTOR } from './context';
-	import type { Collector, PanelDecl, ViewDecl } from './declare';
-	import type { PanelProps } from './types';
+	import { collector, COLLECTOR } from '../utils/context';
+	import type { Collector, PanelDecl, ViewDecl } from '../utils/declare';
+	import type { PanelProps } from '../types';
 
 	let { id, selected, children }: PanelProps = $props();
 

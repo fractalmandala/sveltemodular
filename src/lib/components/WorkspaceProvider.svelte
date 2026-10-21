@@ -1,8 +1,8 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
 	import { setContext, untrack } from 'svelte';
-	import { PROVIDER, WORKSPACE } from './context';
-	import { WorkspaceModel } from './workspace-model.svelte';
+	import { PROVIDER, WORKSPACE } from '../utils/context';
+	import { WorkspaceModel } from '../state/workspace-model.svelte';
 
 	let {
 		children,

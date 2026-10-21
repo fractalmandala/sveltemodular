@@ -1,16 +1,16 @@
 // sveltemodular — Pure Svelte 5 dockable fractal workspace components
-export { default as Workspace } from './Workspace.svelte';
-export { default as WorkspaceProvider } from './WorkspaceProvider.svelte';
-export { default as ViewType } from './ViewType.svelte';
-export { default as Split } from './Split.svelte';
-export { default as Panel } from './Panel.svelte';
-export { default as View } from './View.svelte';
-export { default as Stage } from './Stage.svelte';
-export { default as Floating } from './Floating.svelte';
-export { default as Backdrop } from './Backdrop.svelte';
-export { default as StageEmpty } from './StageEmpty.svelte';
-export { default as Empty } from './Empty.svelte';
-export { default as Chrome } from './Chrome.svelte';
+export { default as Workspace } from './components/Workspace.svelte';
+export { default as WorkspaceProvider } from './components/WorkspaceProvider.svelte';
+export { default as ViewType } from './components/ViewType.svelte';
+export { default as Split } from './components/Split.svelte';
+export { default as Panel } from './components/Panel.svelte';
+export { default as View } from './components/View.svelte';
+export { default as Stage } from './components/Stage.svelte';
+export { default as Floating } from './components/Floating.svelte';
+export { default as Backdrop } from './components/Backdrop.svelte';
+export { default as StageEmpty } from './components/StageEmpty.svelte';
+export { default as Empty } from './components/Empty.svelte';
+export { default as Chrome } from './components/Chrome.svelte';
 
 // Hooks
 export {
@@ -23,11 +23,11 @@ export {
 	useViewTitle,
 	useViewBadge,
 	useCloseGuard
-} from './hooks.svelte';
+} from './state/hooks.svelte';
 
-export { ViewApi } from './view-api.svelte';
-export { WorkspaceModel } from './workspace-model.svelte';
-export type { WorkspaceHandle, WorkspaceSnapshot } from './workspace-model.svelte';
+export { ViewApi } from './state/view-api.svelte';
+export { WorkspaceModel } from './state/workspace-model.svelte';
+export type { WorkspaceHandle, WorkspaceSnapshot } from './state/workspace-model.svelte';
 
 export type {
 	WorkspaceProps,
@@ -56,7 +56,7 @@ export type {
 
 export { DEFAULT_KEYMAP, formatCombo, matchesCombo } from './types';
 
-export { layout, createDocument, emptyDocument, sanitize, normalize } from './document';
+export { layout, createDocument, emptyDocument, sanitize, normalize } from './utils/document';
 
 export type {
 	Axis,
@@ -79,4 +79,4 @@ export type {
 	StageSpec,
 	ViewRecord,
 	ViewSpec
-} from './document';
+} from './utils/document';

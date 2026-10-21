@@ -17,7 +17,7 @@ import {
 	type Rect,
 	type RestoreTarget,
 	type ViewRecord
-} from './document';
+} from '../utils/document';
 import {
 	allowsRegion,
 	buildViewIndex,
@@ -41,10 +41,10 @@ import type {
 	PlacementRegion,
 	ViewInfo,
 	ViewTypeProps
-} from './types';
+} from '../types';
 import { ViewApi } from './view-api.svelte';
-import { buildPanelMenu, cleanMenuSeparators } from './menu';
-import { runCommand } from './commands';
+import { buildPanelMenu, cleanMenuSeparators } from '../utils/menu';
+import { runCommand } from '../utils/commands';
 
 export interface WorkspaceSnapshot {
 	document: LayoutDocument;

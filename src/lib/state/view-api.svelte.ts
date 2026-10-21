@@ -1,5 +1,5 @@
-import type { Params } from './document';
-import type { ViewInfo, ViewTypeProps } from './types';
+import type { Params } from '../utils/document';
+import type { ViewInfo, ViewTypeProps } from '../types';
 import type { WorkspaceHandle, WorkspaceModel } from './workspace-model.svelte';
 
 export class ViewApi<P extends object = Params> {

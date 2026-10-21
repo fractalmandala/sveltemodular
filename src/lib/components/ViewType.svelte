@@ -1,7 +1,7 @@
 <script lang="ts">
 	import { untrack } from 'svelte';
-	import { declarations } from './context';
-	import type { ViewTypeProps } from './types';
+	import { declarations } from '../utils/context';
+	import type { ViewTypeProps } from '../types';
 
 	let props: ViewTypeProps = $props();
 	const decl = declarations('ViewType');

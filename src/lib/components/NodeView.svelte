@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { LayoutNode } from './document';
-	import { modelContext, slotsContext, renderOptionsContext } from './render-context';
+	import type { LayoutNode } from '../utils/document';
+	import { modelContext, slotsContext, renderOptionsContext } from '../utils/render-context';
 	import PanelView from './PanelView.svelte';
 	import NodeView from './NodeView.svelte';
 
@@ -59,9 +59,9 @@
 	}
 
 	function findSplit(
-		node: import('./document').LayoutNode | null,
+		node: import('../utils/document').LayoutNode | null,
 		id: string
-	): import('./document').SplitNode | null {
+	): import('../utils/document').SplitNode | null {
 		if (!node) return null;
 		if (node.kind === 'split' && node.id === id) return node;
 		if (node.kind === 'split') {

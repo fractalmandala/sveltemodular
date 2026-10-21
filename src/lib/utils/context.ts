@@ -1,7 +1,7 @@
 import { getContext } from 'svelte';
 import type { Collector } from './declare';
-import type { Declarations } from './state.svelte';
-import type { ViewApi, WorkspaceModel } from './workspace-model.svelte';
+import type { Declarations } from '../state/state.svelte';
+import type { ViewApi, WorkspaceModel } from '../state/workspace-model.svelte';
 
 export const DECLARATIONS = Symbol('modular.declarations');
 export const COLLECTOR = Symbol('modular.collector');

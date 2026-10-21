@@ -1,6 +1,6 @@
 import type { Snippet } from 'svelte';
-import type { Collector, FloatingDecl, LayoutDecl } from './declare';
-import type { ViewTypeProps } from './types';
+import type { Collector, FloatingDecl, LayoutDecl } from '../utils/declare';
+import type { ViewTypeProps } from '../types';
 import type { WorkspaceModel } from './workspace-model.svelte';
 
 export class SnippetSlot {

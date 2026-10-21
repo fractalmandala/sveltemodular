@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { getContext, mount, setContext, unmount, untrack } from 'svelte';
-	import { COLLECTOR, DECLARATIONS, PROVIDER, WORKSPACE } from './context';
-	import { MODEL, RENDER_OPTIONS, SLOTS, type RenderOptions } from './render-context';
-	import { WorkspaceModel } from './workspace-model.svelte';
-	import { Declarations } from './state.svelte';
-	import { buildInitialLayout } from './declare';
-	import { createDocument, emptyDocument, sanitize, type LayoutDocument } from './document';
-	import type { WorkspaceProps } from './types';
-	import { DEFAULT_KEYMAP, matchesCombo, type Command } from './types';
+	import { COLLECTOR, DECLARATIONS, PROVIDER, WORKSPACE } from '../utils/context';
+	import { MODEL, RENDER_OPTIONS, SLOTS, type RenderOptions } from '../utils/render-context';
+	import { WorkspaceModel } from '../state/workspace-model.svelte';
+	import { Declarations } from '../state/state.svelte';
+	import { buildInitialLayout } from '../utils/declare';
+	import { createDocument, emptyDocument, sanitize, type LayoutDocument } from '../utils/document';
+	import type { WorkspaceProps } from '../types';
+	import { DEFAULT_KEYMAP, matchesCombo, type Command } from '../types';
 	import NodeView from './NodeView.svelte';
 	import PanelView from './PanelView.svelte';
 	import ViewContent from './ViewContent.svelte';
@@ -29,8 +29,8 @@
 		decl.types.size > 0 ? (t: string) => decl.types.has(t) : undefined
 	);
 	model.setEventHandler((event, payload) => {
-		if (event === 'open') options.onOpen?.(payload as import('./types').ViewInfo);
-		else if (event === 'close') options.onClose?.(payload as import('./types').ViewInfo);
+		if (event === 'open') options.onOpen?.(payload as import('../types').ViewInfo);
+		else if (event === 'close') options.onClose?.(payload as import('../types').ViewInfo);
 		else if (event === 'focus') options.onFocus?.(payload as string | null);
 		else if (event === 'popoutOpen') options.onPopoutOpen?.(payload as string);
 		else if (event === 'popoutClose') options.onPopoutClose?.(payload as string);
@@ -130,7 +130,7 @@
 	let hiddenMenuPos = $state({ x: 0, y: 0 });
 
 	const hiddenEntries = $derived(
-		model.doc.hidden.map((hidden) => ({
+		model.doc.hidden.map((hidden: { panel: { id: string; selected: string; }; }) => ({
 			id: `restore-${hidden.panel.id}`,
 			label: model.titleOf(hidden.panel.selected) || 'Hidden panel',
 			run: () => {

@@ -14,8 +14,8 @@ import {
 	type PlacementRegion,
 	type Rect,
 	type RestoreTarget
-} from './document';
-import type { Placement, ViewTypeProps } from './types';
+} from '../utils/document';
+import type { Placement, ViewTypeProps } from '../types';
 
 export interface ViewIndexEntry {
 	panelId: string;

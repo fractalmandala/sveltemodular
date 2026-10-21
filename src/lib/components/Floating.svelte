@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { setContext, untrack } from 'svelte';
-	import { declarations, COLLECTOR } from './context';
-	import type { Collector, FloatingDecl, LayoutDecl, PanelDecl, ViewDecl } from './declare';
-	import type { FloatingProps } from './types';
+	import { declarations, COLLECTOR } from '../utils/context';
+	import type { Collector, FloatingDecl, LayoutDecl, PanelDecl, ViewDecl } from '../utils/declare';
+	import type { FloatingProps } from '../types';
 
 	let { rect, layer = 'overlay', children }: FloatingProps = $props();
 

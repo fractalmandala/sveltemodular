@@ -1,5 +1,5 @@
 <script lang="ts">
-	import type { MenuEntry, MenuItem } from './types';
+	import type { MenuEntry, MenuItem } from '../types';
 
 	let {
 		entries,

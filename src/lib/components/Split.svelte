@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { setContext, untrack } from 'svelte';
-	import { collector, COLLECTOR } from './context';
-	import type { Collector, LayoutDecl, SplitDecl } from './declare';
-	import type { SplitProps } from './types';
+	import { collector, COLLECTOR } from '../utils/context';
+	import type { Collector, LayoutDecl, SplitDecl } from '../utils/declare';
+	import type { SplitProps } from '../types';
 
 	let { axis = 'x', weights, id, children }: SplitProps = $props();
 

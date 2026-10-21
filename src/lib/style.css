@@ -33,7 +33,7 @@
 		0 2px 4px rgba(0, 0, 0, 0.05),
 		0 8px 16px rgba(0, 0, 0, 0.05)
 	);
-	--modular-focus-ring: 0 0 0 1px var(--modular-accent);
+	--modular-focus-ring: 0 0 0 1px var(--theme-color);
 	--modular-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
@@ -64,10 +64,8 @@
 	min-width: 0;
 	min-height: 0;
 	overflow: hidden;
-	background: var(--modular-bg);
-	color: var(--modular-text);
-	font-family: var(--modular-font);
-	font-size: var(--modular-font-size);
+	background: var(--bg);
+	color: var(--text-primary);
 	line-height: 1.4;
 	box-sizing: border-box;
 	user-select: none;
@@ -130,7 +128,7 @@
 	content: '';
 	position: absolute;
 	inset: 0;
-	background: var(--modular-border);
+	background: var(--bg-panel);
 	transition: background 120ms ease;
 }
 
@@ -148,7 +146,7 @@
 
 :where(.modular-divider:hover::after),
 :where(.modular-divider.active::after) {
-	background: var(--modular-accent);
+	background: var(--theme-color);
 }
 
 :where(.modular-split-ratio-pill) {
@@ -156,10 +154,10 @@
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	background: var(--modular-menu);
-	color: var(--modular-text);
-	border: 1px solid var(--modular-border-strong);
-	border-radius: var(--modular-radius);
+	background: var(--bg-surface);
+	color: var(--text-primary);
+	border: 1px solid var(--border-strong);
+	border-radius: var(--radius-sm);
 	padding: 2px 6px;
 	font-size: 10px;
 	font-weight: 600;
@@ -178,22 +176,22 @@
 	flex: 1 1 0%;
 	min-width: 0;
 	min-height: 0;
-	background: var(--modular-panel);
-	border-radius: var(--modular-radius);
-	border: 1px solid var(--modular-border);
+	background: var(--bg-panel);
+	border-radius: var(--radius-sm);
+	border: 1px solid var(--border);
 	overflow: hidden;
 }
 
 :where(.modular-panel[data-focused]) {
-	border-color: var(--modular-border-strong);
+	border-color: var(--border-strong);
 }
 
 :where(.modular-tabbar) {
 	display: flex;
 	align-items: center;
 	height: var(--modular-tabbar-height);
-	background: var(--modular-tabbar);
-	border-bottom: 1px solid var(--modular-border);
+	background: var(--bg-extra);
+	border-bottom: 1px solid var(--border);
 	padding: 0 4px;
 	gap: 2px;
 	overflow-x: auto;
@@ -214,9 +212,8 @@
 	max-width: var(--modular-tab-max-width);
 	padding: 0 8px;
 	background: transparent;
-	color: var(--modular-text-muted);
-	border-radius: var(--modular-tab-radius);
-	font-size: var(--modular-font-size);
+	color: var(--text-primary);
+	border-radius: var(--radius-sm);
 	font-weight: 500;
 	cursor: pointer;
 	white-space: nowrap;
@@ -229,13 +226,13 @@
 }
 
 :where(.modular-tab:hover) {
-	background: var(--modular-tab-hover);
-	color: var(--modular-text);
+	background: var(--state-hover);
+	color: var(--text-primary);
 }
 
 :where(.modular-tab.selected) {
-	background: var(--modular-tab-active);
-	color: var(--modular-text);
+	background: var(--state-active);
+	color: var(--text-primary);
 	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
@@ -246,7 +243,7 @@
 	right: 4px;
 	bottom: 0;
 	height: 2px;
-	background: var(--modular-accent);
+	background: var(--theme-accent);
 	border-radius: 1px;
 }
 
@@ -264,13 +261,14 @@
 	min-width: 14px;
 	height: 14px;
 	border-radius: 7px;
-	background: var(--modular-accent);
-	color: var(--modular-accent-contrast);
+	background: var(--theme-color);
+	color: var(--white-fixed);
 	font-size: 9px;
 	font-weight: 700;
 }
 
-:where(.modular-tab-close) {
+/* scoped to .modular so host `button` resets (padding) cannot collapse icon buttons */
+:where(.modular) .modular-tab-close {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
@@ -281,15 +279,15 @@
 	border: none;
 	border-radius: 2px;
 	background: transparent;
-	color: var(--modular-text-muted);
+	color: var(--text-primary);
 	cursor: pointer;
 	font-size: 13px;
 	line-height: 1;
 }
 
-:where(.modular-tab-close:hover) {
-	background: var(--modular-tab-hover);
-	color: var(--modular-text);
+:where(.modular) .modular-tab-close:hover {
+	background: var(--state-hover);
+	color: var(--text-primary);
 }
 
 :where(.modular-tab-accessory) {
@@ -305,26 +303,27 @@
 	gap: 2px;
 }
 
-:where(.modular-action-button),
-:where(.modular-menu-button) {
+:where(.modular) .modular-action-button,
+:where(.modular) .modular-menu-button {
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
 	width: 22px;
 	height: 22px;
+	padding: 0;
 	border: none;
-	border-radius: var(--modular-radius);
+	border-radius: var(--radius-sm);
 	background: transparent;
-	color: var(--modular-text-muted);
+	color: var(--text-primary);
 	cursor: pointer;
 	font-size: 12px;
 }
 
-:where(.modular-action-button:hover),
-:where(.modular-menu-button:hover),
-:where(.modular-action-button.active) {
-	background: var(--modular-tab-hover);
-	color: var(--modular-text);
+:where(.modular) .modular-action-button:hover,
+:where(.modular) .modular-menu-button:hover,
+:where(.modular) .modular-action-button.active {
+	background: var(--state-hover);
+	color: var(--text-primary);
 }
 
 :where(.modular-panel-body) {
@@ -363,8 +362,8 @@
 :where(.modular-drop-indicator) {
 	position: absolute;
 	background: rgba(34, 197, 94, 0.16);
-	border: 2px dashed var(--modular-accent);
-	border-radius: var(--modular-radius);
+	border: 2px dashed var(--theme-color);
+	border-radius: var(--radius-sm);
 	transition: all 100ms ease;
 }
 
@@ -408,8 +407,8 @@
 	z-index: 80;
 	display: flex;
 	flex-direction: column;
-	background: var(--modular-panel);
-	border: 1px solid var(--modular-border);
+	background: var(--bg-panel);
+	border: 1px solid var(--border);
 }
 
 :where(.modular-maximized-bar) {
@@ -417,14 +416,13 @@
 	align-items: center;
 	justify-content: space-between;
 	height: var(--modular-tabbar-height);
-	background: var(--modular-tabbar);
-	border-bottom: 1px solid var(--modular-border);
+	background: var(--bg-extra);
+	border-bottom: 1px solid var(--border);
 	padding: 0 12px;
 }
 
 :where(.modular-maximized-title) {
 	font-weight: 600;
-	font-size: var(--modular-font-size);
 }
 
 :where(.modular-maximized-body) {
@@ -436,8 +434,8 @@
 
 :where(.modular-floating) {
 	position: absolute;
-	border-radius: var(--modular-radius);
-	box-shadow: var(--modular-shadow-float);
+	border-radius: var(--radius-sm);
+	box-shadow: var(--shadow-bs);
 	overflow: hidden;
 	display: flex;
 }
@@ -466,9 +464,9 @@
 	background: linear-gradient(
 		135deg,
 		transparent 0 50%,
-		var(--modular-text-muted) 50% 60%,
+		var(--text-muted) 50% 60%,
 		transparent 60% 75%,
-		var(--modular-text-muted) 75% 85%,
+		var(--text-muted) 75% 85%,
 		transparent 85%
 	);
 	opacity: 0.6;
@@ -490,17 +488,16 @@
 :where(.modular-hidden-button) {
 	padding: 4px 8px;
 	font: inherit;
-	font-size: var(--modular-font-size);
-	color: var(--modular-text-muted);
-	background: var(--modular-panel);
-	border: 1px solid var(--modular-border-strong);
-	border-radius: var(--modular-radius);
+	color: var(--text-muted);
+	background: var(--bg-panel);
+	border: 1px solid var(--border-strong);
+	border-radius: var(--radius-sm);
 	cursor: pointer;
 }
 
 :where(.modular-hidden-button:hover) {
-	color: var(--modular-text);
-	background: var(--modular-tab-hover);
+	color: var(--text-primary);
+	background: var(--state-hover);
 }
 
 :where(.modular-stage) {
@@ -534,7 +531,7 @@
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	color: var(--modular-text-muted);
+	color: var(--text-primary);
 }
 
 :where(.modular-chrome) {
@@ -552,13 +549,15 @@
 
 :where(dialog.modular-menu) {
 	position: fixed;
+	/* clear the UA dialog inset (inset-inline-start/end) so inline left/right win */
+	inset: auto;
 	margin: 0;
 	padding: 4px;
-	background: var(--modular-menu);
-	color: var(--modular-text);
-	border: 1px solid var(--modular-border-strong);
-	border-radius: var(--modular-radius);
-	box-shadow: var(--modular-shadow-float);
+	background: var(--bg-extra);
+	color: var(--text-primary);
+	border: 1px solid var(--border-strong);
+	border-radius: var(--radius-sm);
+	box-shadow: var(--shadow-lg);
 	z-index: 1000;
 }
 
@@ -572,40 +571,39 @@
 	padding: 0;
 }
 
-:where(.modular-menu-item) {
+/* scoped to the menu dialog so host `button` resets (justify-content, padding) cannot win */
+:where(dialog.modular-menu) .modular-menu-item {
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
 	width: 100%;
 	padding: 4px 8px;
 	border: none;
-	border-radius: var(--modular-tab-radius);
+	border-radius: var(--radius-sm);
 	background: transparent;
-	color: var(--modular-text);
-	font-size: var(--modular-font-size);
 	cursor: pointer;
 	text-align: left;
 	gap: 12px;
 }
 
-:where(.modular-menu-item:hover) {
-	background: var(--modular-menu-hover);
+:where(dialog.modular-menu) .modular-menu-item:hover {
+	background: var(--state-hover);
 }
 
-:where(.modular-menu-item.danger) {
+:where(dialog.modular-menu) .modular-menu-item.danger {
 	color: var(--danger, #ef4444);
 }
 
 :where(.modular-menu-separator) {
 	height: 1px;
-	background: var(--modular-border);
+	background: var(--border);
 	margin: 4px 0;
 }
 
 :where(.modular-menu-item kbd) {
 	font-family: inherit;
 	font-size: 10px;
-	color: var(--modular-text-muted);
+	color: var(--text-secondary);
 }
 
 /* ------------------------------------------------------------------ Popout window body */

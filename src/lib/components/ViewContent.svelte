@@ -1,9 +1,9 @@
 <script lang="ts">
 	import { setContext, untrack } from 'svelte';
-	import { VIEW_API } from './context';
-	import { modelContext, declarationsContext } from './render-context';
-	import type { ViewTypeProps } from './types';
-	import type { ViewApi } from './workspace-model.svelte';
+	import { VIEW_API } from '../utils/context';
+	import { modelContext, declarationsContext } from '../utils/render-context';
+	import type { ViewTypeProps } from '../types';
+	import type { ViewApi } from '../state/workspace-model.svelte';
 
 	let { viewId, part = 'content' }: { viewId: string; part?: 'content' | 'icon' | 'accessory' } =
 		$props();

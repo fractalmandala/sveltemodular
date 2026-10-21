@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { setContext, untrack } from 'svelte';
-	import { collector, declarations, COLLECTOR } from './context';
-	import type { Collector, LayoutDecl, StageDecl } from './declare';
-	import type { StageProps } from './types';
+	import { collector, declarations, COLLECTOR } from '../utils/context';
+	import type { Collector, LayoutDecl, StageDecl } from '../utils/declare';
+	import type { StageProps } from '../types';
 
 	let { id, backdrop, empty, children }: StageProps = $props();
 

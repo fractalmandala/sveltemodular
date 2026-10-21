@@ -8,8 +8,8 @@ import type {
 	Params,
 	PlacementRegion,
 	Rect
-} from './document';
-import type { ViewApi, WorkspaceHandle } from './workspace-model.svelte';
+} from './utils/document';
+import type { ViewApi, WorkspaceHandle } from './state/workspace-model.svelte';
 
 export type { ViewApi, WorkspaceHandle };
 export type { PlacementRegion };
@@ -340,3 +340,19 @@ export interface WorkspaceProps {
 	onPopoutClose?(viewId: string): void;
 	class?: string;
 }
+
+export const PLACEMENTS = [
+	'top',
+	'top-start',
+	'top-end',
+	'bottom',
+	'bottom-start',
+	'bottom-end',
+	'left',
+	'left-start',
+	'left-end',
+	'right',
+	'right-start',
+	'right-end'
+] as const;
+export type DropdownPlacement = (typeof PLACEMENTS)[number];

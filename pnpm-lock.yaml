@@ -12,8 +12,8 @@ importers:
         specifier: ^10.0.1
         version: 10.0.1(eslint@10.13.0)
       '@fractaldesign/fractalstyler':
-        specifier: ^1.3.0
-        version: 1.3.0(sass@1.105.2)(svelte@5.57.2(@typescript-eslint/types@8.72.0))(zod@4.6.7)
+        specifier: ^1.4.0
+        version: 1.4.0(sass@1.105.2)(svelte@5.57.2(@typescript-eslint/types@8.72.0))(zod@4.6.7)
       '@sveltejs/adapter-auto':
         specifier: ^8.0.0
         version: 8.0.0(@sveltejs/kit@3.1.0(@sveltejs/vite-plugin-svelte@7.3.1(svelte@5.57.2(@typescript-eslint/types@8.72.0))(vite@8.3.4(@types/node@24.19.2)(esbuild@0.28.2)(sass@1.105.2)))(svelte@5.57.2(@typescript-eslint/types@8.72.0))(typescript@6.0.3)(vite@8.3.4(@types/node@24.19.2)(esbuild@0.28.2)(sass@1.105.2)))
@@ -38,6 +38,9 @@ importers:
       eslint-plugin-svelte:
         specifier: ^3.19.0
         version: 3.23.1(eslint@10.13.0)(svelte@5.57.2(@typescript-eslint/types@8.72.0))
+      fractalstyler^1.4.0:
+        specifier: link:@fractaldesign/fractalstyler^1.4.0
+        version: link:@fractaldesign/fractalstyler^1.4.0
       globals:
         specifier: ^17.6.0
         version: 17.13.0
@@ -275,8 +278,8 @@ packages:
     resolution: {integrity: sha512-IkO+/KEUvwbVpiURZg+P7zF74z5Jxe0UgJxVni+RtoHQ6IZieXaO02kmadomap/q+l6bc/jdPGGqTjhuZnuz1Q==}
     engines: {node: ^20.19.0 || ^22.13.0 || >=24}
 
-  '@fractaldesign/fractalstyler@1.3.0':
-    resolution: {integrity: sha512-rf1MY/oUt9gNdi4xoyUJc5sUnMj+jhNcQRXOd2O2BckIC9k1lXFuFq7OEa8O2XOX4oTmVE43+fPBS8VW7S4Bew==}
+  '@fractaldesign/fractalstyler@1.4.0':
+    resolution: {integrity: sha512-J8CreMWq2/YD8LWkG0YkuDwuqB8X0ZsDt4YvLOxZrM7EEhXHOXVjlos/X78bm4L7J0FUf2QCC0J2Qnlq8z5TrQ==}
     engines: {node: '>=18'}
     hasBin: true
     peerDependencies:
@@ -2112,7 +2115,7 @@ snapshots:
       '@eslint/core': 1.2.1
       levn: 0.4.1
 
-  '@fractaldesign/fractalstyler@1.3.0(sass@1.105.2)(svelte@5.57.2(@typescript-eslint/types@8.72.0))(zod@4.6.7)':
+  '@fractaldesign/fractalstyler@1.4.0(sass@1.105.2)(svelte@5.57.2(@typescript-eslint/types@8.72.0))(zod@4.6.7)':
     dependencies:
       '@modelcontextprotocol/sdk': 1.32.1(zod@4.6.7)
       svelte: 5.57.2(@typescript-eslint/types@8.72.0)

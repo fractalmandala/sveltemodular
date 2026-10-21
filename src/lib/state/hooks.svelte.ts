@@ -1,5 +1,5 @@
-import type { Params } from './document';
-import { optionalViewApi, optionalWorkspaceModel, viewApi, workspaceModel } from './context';
+import type { Params } from '../utils/document';
+import { optionalViewApi, optionalWorkspaceModel, viewApi, workspaceModel } from '../utils/context';
 import type { ViewApi, WorkspaceHandle } from './workspace-model.svelte';
 
 export function useWorkspace(): WorkspaceHandle {

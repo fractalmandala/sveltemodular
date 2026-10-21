@@ -1,6 +1,6 @@
 import type { PanelNode } from './document';
-import type { MenuEntry } from './types';
-import type { WorkspaceModel } from './workspace-model.svelte';
+import type { MenuEntry } from '../types';
+import type { WorkspaceModel } from '../state/workspace-model.svelte';
 
 export function cleanMenuSeparators(entries: MenuEntry[]): MenuEntry[] {
 	const out: MenuEntry[] = [];

@@ -1,5 +1,5 @@
-import type { Command } from './types';
-import type { WorkspaceModel } from './workspace-model.svelte';
+import type { Command } from '../types';
+import type { WorkspaceModel } from '../state/workspace-model.svelte';
 
 /** Runs a command against the workspace. */
 export function runCommand(model: WorkspaceModel, command: Command): void {

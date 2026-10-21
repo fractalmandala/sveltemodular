@@ -1,9 +1,13 @@
 <script lang="ts">
-	import type { PanelNode } from './document';
-	import { modelContext, renderOptionsContext } from './render-context';
-	import type { MenuEntry, MenuRequest, DropZone } from './types';
+	import type { PanelNode } from '../utils/document';
+	import { modelContext, renderOptionsContext } from '../utils/render-context';
+	import type { MenuEntry, MenuRequest, DropZone } from '../types';
 	import Menu from './Menu.svelte';
 	import ViewContent from './ViewContent.svelte';
+	import MaximizeIcon from '../icons/maximize.svelte';
+	import MoreIcon from '../icons/more.svelte';
+	import NewWindowIcon from '../icons/newWindow.svelte';
+	import CloseIcon from '../icons/close.svelte'
 
 	let { panel, region }: { panel: PanelNode; region: 'docked' | 'floating' | 'stage' } = $props();
 
@@ -346,7 +350,7 @@
 								void model.close(viewId);
 							}}
 						>
-							×
+							<CloseIcon size={16}/>
 						</button>
 					{/if}
 				</div>
@@ -370,7 +374,7 @@
 							model.openPopout(panel.selected);
 						}}
 					>
-						⧉
+						<NewWindowIcon size={16} />
 					</button>
 					<button
 						type="button"
@@ -383,7 +387,7 @@
 							model.toggleMaximize(panel.selected);
 						}}
 					>
-						{isMaximized ? '❐' : '□'}
+						<MaximizeIcon size={16} />
 					</button>
 				{/if}
 				<button
@@ -397,7 +401,7 @@
 						openMenu(e);
 					}}
 				>
-					⋯
+					<MoreIcon size={16} />
 				</button>
 			</div>
 		</div>

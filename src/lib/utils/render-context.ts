@@ -1,7 +1,7 @@
 import { getContext } from 'svelte';
-import type { Declarations } from './state.svelte';
-import type { WorkspaceModel } from './workspace-model.svelte';
-import type { MenuEntry, PanelMenuContext } from './types';
+import type { Declarations } from '../state/state.svelte';
+import type { WorkspaceModel } from '../state/workspace-model.svelte';
+import type { MenuEntry, PanelMenuContext } from '../types';
 
 export const MODEL = Symbol('modular.model');
 export const SLOTS = Symbol('modular.slots');
@@ -9,7 +9,7 @@ export const RENDER_OPTIONS = Symbol('modular.render-options');
 
 export interface RenderOptions {
 	panelMenu: WorkspaceRenderMenu;
-	renderMenu?: (request: import('./types').MenuRequest) => void;
+	renderMenu?: (request: import('../types').MenuRequest) => void;
 	tabs?: { fill?: boolean; inset?: number };
 	floatingEnabled: boolean;
 	showSplitRatio?: boolean;
