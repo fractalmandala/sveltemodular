@@ -1,0 +1,626 @@
+/* sveltemodular — Pure Svelte 5 fractal dockable workspace chrome.
+   Adheres to Fractalstyler design tokens, 4px/8px max border radius, and canonical styling. */
+
+:where(.modular) {
+	/* Metrics */
+	--modular-gap: 4px;
+	--modular-radius: var(--radius-sm, 4px);
+	--modular-tab-radius: var(--radius-xs, 2px);
+	--modular-tabbar-height: var(--height-bs, 28px);
+	--modular-font: ui-sans-serif, system-ui, -apple-system, sans-serif;
+	--modular-font-size: var(--text-sm, 0.75rem);
+	--modular-tab-max-width: 200px;
+	--modular-tab-inset: 2px;
+
+	/* Fractal tokens integration with safe defaults */
+	--modular-bg: var(--bg-sunken, #f0f1f3);
+	--modular-panel: var(--bg-surface, #ffffff);
+	--modular-tabbar: var(--bg, #f8f9fa);
+	--modular-tab-hover: var(--state-hover, #eceef1);
+	--modular-tab-active: var(--bg-surface, #ffffff);
+	--modular-text: var(--text-primary, #18181b);
+	--modular-text-muted: var(--text-secondary, #6b7280);
+	--modular-border: var(--border-subtle, #f0f1f3);
+	--modular-border-strong: var(--border, #e5e7eb);
+	--modular-accent: var(--theme-color, #22c55e);
+	--modular-accent-contrast: #ffffff;
+	--modular-stage: var(--bg-surface, #ffffff);
+	--modular-slot: var(--bg-sunken, #f0f1f3);
+	--modular-menu: var(--bg-raised, #ffffff);
+	--modular-menu-hover: var(--state-hover, #eceef1);
+	--modular-shadow-float: var(
+		--shadow-md,
+		0 2px 4px rgba(0, 0, 0, 0.05),
+		0 8px 16px rgba(0, 0, 0, 0.05)
+	);
+	--modular-focus-ring: 0 0 0 1px var(--modular-accent);
+	--modular-ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+:where(.modular[data-theme='dark']) {
+	--modular-bg: #121316;
+	--modular-panel: #18191d;
+	--modular-tabbar: #141518;
+	--modular-tab-hover: rgba(255, 255, 255, 0.06);
+	--modular-tab-active: #1e2025;
+	--modular-text: #f4f4f6;
+	--modular-text-muted: #9ca3af;
+	--modular-border: rgba(255, 255, 255, 0.08);
+	--modular-border-strong: rgba(255, 255, 255, 0.14);
+	--modular-accent: #22c55e;
+	--modular-stage: #18191d;
+	--modular-slot: #141518;
+	--modular-menu: #1e2025;
+	--modular-menu-hover: rgba(255, 255, 255, 0.08);
+	--modular-shadow-float: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+:where(.modular) {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+	height: 100%;
+	min-width: 0;
+	min-height: 0;
+	overflow: hidden;
+	background: var(--modular-bg);
+	color: var(--modular-text);
+	font-family: var(--modular-font);
+	font-size: var(--modular-font-size);
+	line-height: 1.4;
+	box-sizing: border-box;
+	user-select: none;
+}
+
+:where(.modular) *,
+:where(.modular) *::before,
+:where(.modular) *::after {
+	box-sizing: inherit;
+}
+
+:where(.modular-root) {
+	position: relative;
+	flex: 1 1 0%;
+	min-width: 0;
+	min-height: 0;
+	display: flex;
+	overflow: hidden;
+}
+
+/* ------------------------------------------------------------------ Splits */
+
+:where(.modular-split) {
+	display: flex;
+	flex: 1 1 0%;
+	min-width: 0;
+	min-height: 0;
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	gap: 0;
+}
+
+:where(.modular-split[data-axis='x']) {
+	flex-direction: row;
+}
+
+:where(.modular-split[data-axis='y']) {
+	flex-direction: column;
+}
+
+:where(.modular-split-child) {
+	position: relative;
+	display: flex;
+	min-width: 0;
+	min-height: 0;
+	overflow: hidden;
+}
+
+:where(.modular-divider) {
+	position: relative;
+	flex: 0 0 var(--modular-gap);
+	background: transparent;
+	transition: background 120ms ease;
+	z-index: 2;
+	touch-action: none;
+}
+
+:where(.modular-divider::after) {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: var(--modular-border);
+	transition: background 120ms ease;
+}
+
+:where(.modular-divider[data-axis='x']) {
+	cursor: col-resize;
+	width: var(--modular-gap);
+	margin: 0 -1px;
+}
+
+:where(.modular-divider[data-axis='y']) {
+	cursor: row-resize;
+	height: var(--modular-gap);
+	margin: -1px 0;
+}
+
+:where(.modular-divider:hover::after),
+:where(.modular-divider.active::after) {
+	background: var(--modular-accent);
+}
+
+:where(.modular-split-ratio-pill) {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	background: var(--modular-menu);
+	color: var(--modular-text);
+	border: 1px solid var(--modular-border-strong);
+	border-radius: var(--modular-radius);
+	padding: 2px 6px;
+	font-size: 10px;
+	font-weight: 600;
+	white-space: nowrap;
+	pointer-events: none;
+	z-index: 10;
+	box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* ------------------------------------------------------------------ Panels */
+
+:where(.modular-panel) {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	flex: 1 1 0%;
+	min-width: 0;
+	min-height: 0;
+	background: var(--modular-panel);
+	border-radius: var(--modular-radius);
+	border: 1px solid var(--modular-border);
+	overflow: hidden;
+}
+
+:where(.modular-panel[data-focused]) {
+	border-color: var(--modular-border-strong);
+}
+
+:where(.modular-tabbar) {
+	display: flex;
+	align-items: center;
+	height: var(--modular-tabbar-height);
+	background: var(--modular-tabbar);
+	border-bottom: 1px solid var(--modular-border);
+	padding: 0 4px;
+	gap: 2px;
+	overflow-x: auto;
+	overflow-y: hidden;
+	scrollbar-width: none;
+}
+
+:where(.modular-tabbar)::-webkit-scrollbar {
+	display: none;
+}
+
+:where(.modular-tab) {
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	height: calc(var(--modular-tabbar-height) - 4px);
+	max-width: var(--modular-tab-max-width);
+	padding: 0 8px;
+	background: transparent;
+	color: var(--modular-text-muted);
+	border-radius: var(--modular-tab-radius);
+	font-size: var(--modular-font-size);
+	font-weight: 500;
+	cursor: pointer;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	border: none;
+	transition:
+		background 100ms ease,
+		color 100ms ease;
+}
+
+:where(.modular-tab:hover) {
+	background: var(--modular-tab-hover);
+	color: var(--modular-text);
+}
+
+:where(.modular-tab.selected) {
+	background: var(--modular-tab-active);
+	color: var(--modular-text);
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+:where(.modular-tab.selected::before) {
+	content: '';
+	position: absolute;
+	left: 4px;
+	right: 4px;
+	bottom: 0;
+	height: 2px;
+	background: var(--modular-accent);
+	border-radius: 1px;
+}
+
+:where(.modular-tab-title) {
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+:where(.modular-badge) {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0 4px;
+	min-width: 14px;
+	height: 14px;
+	border-radius: 7px;
+	background: var(--modular-accent);
+	color: var(--modular-accent-contrast);
+	font-size: 9px;
+	font-weight: 700;
+}
+
+:where(.modular-tab-close) {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 14px;
+	height: 14px;
+	padding: 0;
+	margin-left: 2px;
+	border: none;
+	border-radius: 2px;
+	background: transparent;
+	color: var(--modular-text-muted);
+	cursor: pointer;
+	font-size: 13px;
+	line-height: 1;
+}
+
+:where(.modular-tab-close:hover) {
+	background: var(--modular-tab-hover);
+	color: var(--modular-text);
+}
+
+:where(.modular-tab-accessory) {
+	flex: 1 1 0%;
+	display: flex;
+	align-items: center;
+	min-width: 8px;
+}
+
+:where(.modular-tab-actions) {
+	display: flex;
+	align-items: center;
+	gap: 2px;
+}
+
+:where(.modular-action-button),
+:where(.modular-menu-button) {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 22px;
+	height: 22px;
+	border: none;
+	border-radius: var(--modular-radius);
+	background: transparent;
+	color: var(--modular-text-muted);
+	cursor: pointer;
+	font-size: 12px;
+}
+
+:where(.modular-action-button:hover),
+:where(.modular-menu-button:hover),
+:where(.modular-action-button.active) {
+	background: var(--modular-tab-hover);
+	color: var(--modular-text);
+}
+
+:where(.modular-panel-body) {
+	position: relative;
+	flex: 1 1 0%;
+	min-width: 0;
+	min-height: 0;
+	display: flex;
+	overflow: hidden;
+}
+
+:where(.modular-view) {
+	position: relative;
+	flex: 1 1 0%;
+	min-width: 0;
+	min-height: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+}
+
+:where(.modular-view[hidden]) {
+	display: none !important;
+}
+
+/* ------------------------------------------------------------------ Drag & Drop Overlay */
+
+:where(.modular-drop-overlay) {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	z-index: 50;
+	transition: all 120ms ease;
+}
+
+:where(.modular-drop-indicator) {
+	position: absolute;
+	background: rgba(34, 197, 94, 0.16);
+	border: 2px dashed var(--modular-accent);
+	border-radius: var(--modular-radius);
+	transition: all 100ms ease;
+}
+
+:where(.modular-drop-indicator[data-zone='center']) {
+	inset: 4px;
+}
+
+:where(.modular-drop-indicator[data-zone='left']) {
+	top: 4px;
+	bottom: 4px;
+	left: 4px;
+	width: 38%;
+}
+
+:where(.modular-drop-indicator[data-zone='right']) {
+	top: 4px;
+	bottom: 4px;
+	right: 4px;
+	width: 38%;
+}
+
+:where(.modular-drop-indicator[data-zone='top']) {
+	top: 4px;
+	left: 4px;
+	right: 4px;
+	height: 38%;
+}
+
+:where(.modular-drop-indicator[data-zone='bottom']) {
+	bottom: 4px;
+	left: 4px;
+	right: 4px;
+	height: 38%;
+}
+
+/* ------------------------------------------------------------------ Maximized Layer */
+
+:where(.modular-maximized) {
+	position: absolute;
+	inset: 0;
+	z-index: 80;
+	display: flex;
+	flex-direction: column;
+	background: var(--modular-panel);
+	border: 1px solid var(--modular-border);
+}
+
+:where(.modular-maximized-bar) {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	height: var(--modular-tabbar-height);
+	background: var(--modular-tabbar);
+	border-bottom: 1px solid var(--modular-border);
+	padding: 0 12px;
+}
+
+:where(.modular-maximized-title) {
+	font-weight: 600;
+	font-size: var(--modular-font-size);
+}
+
+:where(.modular-maximized-body) {
+	flex: 1 1 0%;
+	overflow: auto;
+}
+
+/* ------------------------------------------------------------------ Floating & Stage */
+
+:where(.modular-floating) {
+	position: absolute;
+	border-radius: var(--modular-radius);
+	box-shadow: var(--modular-shadow-float);
+	overflow: hidden;
+	display: flex;
+}
+
+/* Floating panels in the stage layer sit flat, without the floating shadow. */
+:where(.modular-floating[data-layer='stage']) {
+	box-shadow: none;
+}
+
+/* The tab bar of a floating panel is its drag handle. */
+:where(.modular-tabbar-drag) {
+	cursor: grab;
+}
+
+:where(.modular-tabbar-drag:active) {
+	cursor: grabbing;
+}
+
+:where(.modular-floating-resize) {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	width: 14px;
+	height: 14px;
+	cursor: nwse-resize;
+	background: linear-gradient(
+		135deg,
+		transparent 0 50%,
+		var(--modular-text-muted) 50% 60%,
+		transparent 60% 75%,
+		var(--modular-text-muted) 75% 85%,
+		transparent 85%
+	);
+	opacity: 0.6;
+}
+
+:where(.modular-floating-resize:hover) {
+	opacity: 1;
+}
+
+/* ------------------------------------------------------------------ Hidden panels */
+
+:where(.modular-hidden-tray) {
+	position: absolute;
+	right: 8px;
+	bottom: 8px;
+	z-index: 120;
+}
+
+:where(.modular-hidden-button) {
+	padding: 4px 8px;
+	font: inherit;
+	font-size: var(--modular-font-size);
+	color: var(--modular-text-muted);
+	background: var(--modular-panel);
+	border: 1px solid var(--modular-border-strong);
+	border-radius: var(--modular-radius);
+	cursor: pointer;
+}
+
+:where(.modular-hidden-button:hover) {
+	color: var(--modular-text);
+	background: var(--modular-tab-hover);
+}
+
+:where(.modular-stage) {
+	position: relative;
+	flex: 1 1 0%;
+	display: flex;
+	min-width: 0;
+	min-height: 0;
+	overflow: hidden;
+}
+
+:where(.modular-stage-child) {
+	position: relative;
+	flex: 1 1 0%;
+	display: flex;
+	min-width: 0;
+	min-height: 0;
+	z-index: 1;
+}
+
+:where(.modular-stage-backdrop) {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	z-index: 0;
+}
+
+:where(.modular-stage-empty),
+:where(.modular-empty) {
+	flex: 1 1 0%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: var(--modular-text-muted);
+}
+
+:where(.modular-chrome) {
+	position: absolute;
+	inset: 0;
+	pointer-events: none;
+	z-index: 100;
+}
+
+:where(.modular-chrome) > * {
+	pointer-events: auto;
+}
+
+/* ------------------------------------------------------------------ Menu Dialog */
+
+:where(dialog.modular-menu) {
+	position: fixed;
+	margin: 0;
+	padding: 4px;
+	background: var(--modular-menu);
+	color: var(--modular-text);
+	border: 1px solid var(--modular-border-strong);
+	border-radius: var(--modular-radius);
+	box-shadow: var(--modular-shadow-float);
+	z-index: 1000;
+}
+
+:where(dialog.modular-menu)::backdrop {
+	background: transparent;
+}
+
+:where(dialog.modular-menu ul) {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+:where(.modular-menu-item) {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	padding: 4px 8px;
+	border: none;
+	border-radius: var(--modular-tab-radius);
+	background: transparent;
+	color: var(--modular-text);
+	font-size: var(--modular-font-size);
+	cursor: pointer;
+	text-align: left;
+	gap: 12px;
+}
+
+:where(.modular-menu-item:hover) {
+	background: var(--modular-menu-hover);
+}
+
+:where(.modular-menu-item.danger) {
+	color: var(--danger, #ef4444);
+}
+
+:where(.modular-menu-separator) {
+	height: 1px;
+	background: var(--modular-border);
+	margin: 4px 0;
+}
+
+:where(.modular-menu-item kbd) {
+	font-family: inherit;
+	font-size: 10px;
+	color: var(--modular-text-muted);
+}
+
+/* ------------------------------------------------------------------ Popout window body */
+
+:where(.modular-popout-body) {
+	margin: 0;
+	padding: 0;
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	overflow: hidden;
+}
+
+:where(.modular-popout-view) {
+	width: 100%;
+	height: 100%;
+	display: flex;
+}

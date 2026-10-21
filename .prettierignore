@@ -1,0 +1,5 @@
+dist
+.svelte-kit
+build
+node_modules
+pnpm-lock.yaml
